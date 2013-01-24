@@ -1,0 +1,55 @@
+#                                               -*- Autoconf -*-
+# Process this file with autoconf to produce a configure script.
+
+AC_PREREQ(2.59)
+AC_INIT(libprotein, 1.0, error.d@gmail.com)
+AC_CONFIG_SRCDIR([src/logging.cpp])
+AC_CONFIG_HEADER([config.h])
+AM_INIT_AUTOMAKE()
+
+
+AC_ARG_ENABLE([debug],
+                [  --enable-debug Turn on debugging],
+                [case "${enableval}" in
+                yes) debug=true ;;
+                no) debug=false ;;
+                *) AC_MSG_ERROR([bad value ${enableval} for --enable-debug]) ;;
+                esac],[debug=false])
+AM_CONDITIONAL([DEBUG], [test x$debug = xtrue])
+
+if test x$debug = xtrue;
+then
+CFLAGS="-g -DDBUG -fPIC"
+CXXFLAGS="-g -DDBUG -fPIC"
+else
+CFLAGS="-g -DNODEBUG -fPIC"
+CXXFLAGS="-O3 -DNODEBUG -fPIC"
+fi
+
+# Checks for programs.
+AC_PROG_CXX
+AC_PROG_CC
+
+AC_PROG_CPP
+AC_PROG_INSTALL
+AC_PROG_LN_S
+AC_PROG_MAKE_SET
+AC_PROG_AWK
+# library need
+AC_PROG_RANLIB
+
+# Checks for libraries.
+
+# Checks for header files.
+AC_HEADER_STDC
+AC_CHECK_HEADERS([stdlib.h])
+
+# Checks for typedefs, structures, and compiler characteristics.
+AC_HEADER_STDBOOL
+AC_C_CONST
+AC_C_INLINE
+
+# Checks for library functions.
+AC_CONFIG_FILES([Makefile
+                 src/Makefile])
+AC_OUTPUT
