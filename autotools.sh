@@ -36,6 +36,8 @@ clean() {
     rm -rf src/Makefile.in
     rm -rf src/Makefile
     rm -rf src/.deps
+    rm -rf src/*.o
+    rm -rf src/*.a
     echo
 }
 
